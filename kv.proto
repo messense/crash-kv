@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+package crash_kv;
+
+service KVDB {
+    rpc get (GetRequest) returns (GetResponse) {}
+    rpc add (AddRequest) returns (Empty) {}
+}
+
+message Empty {}
+
+message GetRequest {
+    required string key = 1;
+}
+
+message GetResponse {
+    required string key = 1;
+    required string value = 2;
+}
+
+message AddRequest {
+    required string key = 1;
+    required string value = 2;
+}
