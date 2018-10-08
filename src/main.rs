@@ -24,7 +24,7 @@ struct KVDBService {
 }
 
 impl Kvdb for KVDBService {
-    fn get(&self, ctx: RpcContext, req: GetRequest, sink: UnarySink<GetResponse>) {
+    fn get(&mut self, ctx: RpcContext, req: GetRequest, sink: UnarySink<GetResponse>) {
         let key = req.get_key();
         let db = self.db.clone();
         let value = db
@@ -42,7 +42,7 @@ impl Kvdb for KVDBService {
         ctx.spawn(f)
     }
 
-    fn add(&self, ctx: RpcContext, req: AddRequest, sink: UnarySink<Empty>) {
+    fn add(&mut self, ctx: RpcContext, req: AddRequest, sink: UnarySink<Empty>) {
         let key = req.get_key();
         let value = req.get_value();
         let db = self.db.clone();

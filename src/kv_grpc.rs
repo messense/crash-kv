@@ -80,17 +80,17 @@ impl KvdbClient {
 }
 
 pub trait Kvdb {
-    fn get(&self, ctx: ::grpcio::RpcContext, req: super::kv::GetRequest, sink: ::grpcio::UnarySink<super::kv::GetResponse>);
-    fn add(&self, ctx: ::grpcio::RpcContext, req: super::kv::AddRequest, sink: ::grpcio::UnarySink<super::kv::Empty>);
+    fn get(&mut self, ctx: ::grpcio::RpcContext, req: super::kv::GetRequest, sink: ::grpcio::UnarySink<super::kv::GetResponse>);
+    fn add(&mut self, ctx: ::grpcio::RpcContext, req: super::kv::AddRequest, sink: ::grpcio::UnarySink<super::kv::Empty>);
 }
 
 pub fn create_kvdb<S: Kvdb + Send + Clone + 'static>(s: S) -> ::grpcio::Service {
     let mut builder = ::grpcio::ServiceBuilder::new();
-    let instance = s.clone();
+    let mut instance = s.clone();
     builder = builder.add_unary_handler(&METHOD_KVDB_GET, move |ctx, req, resp| {
         instance.get(ctx, req, resp)
     });
-    let instance = s.clone();
+    let mut instance = s.clone();
     builder = builder.add_unary_handler(&METHOD_KVDB_ADD, move |ctx, req, resp| {
         instance.add(ctx, req, resp)
     });

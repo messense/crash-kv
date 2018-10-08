@@ -5,10 +5,10 @@ authors = ["messense <messense@icloud.com>"]
 
 [dependencies]
 futures = "0.1.23"
-grpcio-proto = "0.3.0"
-protobuf = "2.0.4"
+grpcio-proto = "0.4.0"
+protobuf = "~2.0.4"
 parking_lot = "0.6.3"
-grpcio = "0.3.0"
+grpcio = "0.4.0"
 
 [dependencies.rocksdb]
 git = "https://github.com/pingcap/rust-rocksdb.git"
